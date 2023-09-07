@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="maxProduct">
+      <h1>1.Maximum Product of Three Numers</h1>
+      <input type="text" id="num1" />
+      <input type="text" id="num2" />
+      <input type="text" id="num3" />
+      <input type="text" id="num4" />
+      <input type="text" id="num5" />
+      <input type="text" id="num6" />
+      <button id="btnSubmit" onclick="findMaxProduct()">Submit</button>
+      <span id="result"></span>
+    </div>
+    <div class="maxProfit">
+      <h1>2.Maximum Profit in Stock Market</h1>
+      <input type="text" id="num7" />
+      <input type="text" id="num8" />
+      <input type="text" id="num9" />
+      <input type="text" id="num10" />
+      <input type="text" id="num11" />
+      <input type="text" id="num12" />
+      <button id="btnSubmitProfit" onclick="findMaximumProfit()">Submit</button>
+      <span id="result"></span>
+    </div>
+    <div class="maxFromSubsetOfItem">
+      <h1>3.Maximum From Subset Of Item</h1>
+      <input type="text" id="weight" placeholder="Weights" />
+      <input type="text" id="value" placeholder="value" />
+      <input type="text" id="weight-limit" placeholder="weight Limit" />
+      <button id="findoutput" onclick="maxFromSubsetOfItem()">Submit</button>
+      <span id="resultSubset"></span>
+    </div>
+    <div class="FindSubarraywithLargestSum">
+      <h1>4.Find Subarray with Largest Sum</h1>
+      <p>Enter numbers separated by commas</p>
+      <input
+        type="text"
+        id="inputArray"
+        placeholder="Enter -2, -3, 4, -1, -2, 1, 5, -3"
+      />
+      <button onclick="calculateMaxSubarraySum()">Calculate</button>
+      <p id="resulthere"></p>
+    </div>
+    <div class="BinaryTreeMaximumDepth">
+      <h1>5.Binary Tree Maximum Depth</h1>
+      <div id="treeInput">
+        <label for="treeInput">Enter Binary Tree Nodes:</label>
+        <input
+          type="text"
+          id="inputField"
+          placeholder="Example: 3,9,20,null,null,15,7"
+        />
+        <button onclick="findMaxDepth()">Calculate Depth</button>
+      </div>
+      <div id="output">
+        <p>Maximum Depth: <span id="maxDepth"></span></p>
+      </div>
+    </div>
+    <div class="KthSmallestElementFinder">
+      <h1>6.Kth Smallest Element Finder</h1>
+      <p>Enter integers separated by commas:</p>
+      <input type="text" id="inputList" placeholder="3, 5, 2, 8, 9, 1" /><br />
+      <button onclick="findKthSmallest()">Find Kth Smallest</button>
+      <p id="resultKth"></p>
+    </div>
+    <div class="validateEmail">
+      <h1>7.Validation of Email</h1>
+      <input type="text" id="emailInput" placeholder="Enter an email address" />
+      <button onclick="validateEmail()">Check Email</button>
+      <p id="resultEmail"></p>
+    </div>
+    <div class="htmlTable">
+      <h1>8.Table find Total</h1>
+      <table>
+        <tr>
+          <th>Item</th>
+          <th>Price</th>
+          <th>Quantity</th>
+        </tr>
+        <tr>
+          <td>Item 1</td>
+          <td>10</td>
+          <td>2</td>
+        </tr>
+        <tr>
+          <td>Item 2</td>
+          <td>20</td>
+          <td>3</td>
+        </tr>
+        <tr>
+          <td>Item 3</td>
+          <td>5</td>
+          <td>4</td>
+        </tr>
+      </table>
+      <p id="total">Total: <span id="sum">0.00</span></p>
+    </div>
+    <div class="RemovePunctuation">
+      <h1>9.Remove Punctuation from Sentence</h1>
+      <p id="resultPunctuation"></p>
+    </div>
+    <div class="findMorethanFiveLetters">
+      <h1>10.Words with More than 5 Letters</h1>
+      <p>Enter a list of words separated by spaces:</p>
+      <textarea id="inputWords" rows="4" cols="50"></textarea>
+      <br />
+      <button onclick="findWords()">Find Words</button>
+      <div id="resultWords"></div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
