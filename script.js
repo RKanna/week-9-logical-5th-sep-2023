@@ -20,80 +20,65 @@ btnSubmit.addEventListener("click", function () {
 });
 
 //2.You are given a list of integers representing stock prices. Write a program to find the maximum profit that can be made by buying and selling the stock at most once, and display the result on a web page.
-// const btnSubmitProfit = document.getElementById("btnSubmitProfit");
-// btnSubmitProfit.addEventListener("click", function () {
-//   const stockPrices = [
-//     Number(document.getElementById("num7").value),
-//     Number(document.getElementById("num8").value),
-//     Number(document.getElementById("num9").value),
-//     Number(document.getElementById("num10").value),
-//     Number(document.getElementById("num11").value),
-//     Number(document.getElementById("num12").value),
-//   ];
-
-//   if (stockPrices.length < 2) {
-//     resultProfit.textContent = "At least two stock prices are required.";
-//     return;
-//   }
-
-//   const maxProfit = calculateMaxProfit(stockPrices);
-//   resultProfit.textContent = `Maximum profit: $${maxProfit}`;
-
-//   function calculateMaxProfit(prices) {
-//     let maxProfit = 0;
-//     let minPrice = prices[0];
-
-//     for (let i = 1; i < prices.length; i++) {
-//       const currentPrice = prices[i];
-//       const potentialProfit = currentPrice - minPrice;
-
-//       if (potentialProfit > maxProfit) {
-//         maxProfit = potentialProfit;
-//       }
-
-//       if (currentPrice < minPrice) {
-//         minPrice = currentPrice;
-//       }
-//     }
-
-//     return maxProfit;
-//   }
-
-//   const btnProfit = document.getElementById("btnSubmit");
-//   btnProfit.addEventListener("click", findMaximumProfit);
-// });
+const btnSubmitProfit = document.getElementById("btnSubmitProfit");
+btnSubmitProfit.addEventListener("click", function () {
+  const prices = [
+    parseInt(document.getElementById("num7").value),
+    parseInt(document.getElementById("num8").value),
+    parseInt(document.getElementById("num9").value),
+    parseInt(document.getElementById("num10").value),
+    parseInt(document.getElementById("num11").value),
+    parseInt(document.getElementById("num12").value),
+  ];
+  let maxProfit = 0;
+  let minPrice = prices[0];
+  for (let i = 0; i < prices.length; i++) {
+    const currentPrice = prices[i];
+    minPrice = Math.min(minPrice, currentPrice);
+    maxProfit = Math.max(maxProfit, currentPrice - minPrice);
+  }
+  document.getElementById("resultStockMarket").textContent =
+    "Maximum Profit: " + maxProfit;
+});
 
 //3.You are given a list of integers representing weights of items and their corresponding values. Write a program to find the maximum value that can be obtained by selecting a subset of items with a total weight not exceeding a given limit, and display the result on a web page.
-const findoutput = document.getElementById("findoutput");
-findoutput.addEventListener("click", function () {
-  const weightsInput = document.getElementById("weights").value;
-  const valuesInput = document.getElementById("values").value;
+document.getElementById("findoutput").addEventListener("click", () => {
+  const weightsInput = document
+    .getElementById("weight")
+    .value.split(",")
+    .map(Number);
+  const valuesInput = document
+    .getElementById("value")
+    .value.split(",")
+    .map(Number);
   const weightLimit = parseInt(document.getElementById("weight-limit").value);
 
-  const weights = weightsInput.split(",").map(Number);
-  const values = valuesInput.split(",").map(Number);
+  if (weightsInput.length !== valuesInput.length) {
+    alert("Number of weights must be equal to the number of values.");
+    return;
+  }
 
-  const n = weights.length;
-  const dp = new Array(n + 1)
-    .fill(null)
-    .map(() => new Array(weightLimit + 1).fill(0));
+  const n = weightsInput.length;
+  const dp = Array.from({ length: n + 1 }, () =>
+    Array(weightLimit + 1).fill(0)
+  );
 
   for (let i = 1; i <= n; i++) {
-    for (let w = 1; w <= weightLimit; w++) {
-      if (weights[i - 1] <= w) {
-        dp[i][w] = Math.max(
-          dp[i - 1][w],
-          dp[i - 1][w - weights[i - 1]] + values[i - 1]
-        );
+    const weight = weightsInput[i - 1];
+    const value = valuesInput[i - 1];
+    for (let w = 0; w <= weightLimit; w++) {
+      if (weight <= w) {
+        dp[i][w] = Math.max(dp[i - 1][w], dp[i - 1][w - weight] + value);
       } else {
         dp[i][w] = dp[i - 1][w];
       }
     }
   }
 
-  const maxValue = dp[n][weightLimit];
-  document.getElementById("resultSubset").textContent =
-    "Maximum value: " + maxValue;
+  const maximumValue = dp[n][weightLimit];
+  document.getElementById(
+    "resultSubset"
+  ).innerText = `Maximum value: ${maximumValue}`;
 });
 
 //4.You are given a list of numbers. Write a program to find the subarray with the largest sum and display the result on a web page.
@@ -135,54 +120,50 @@ btnCalculateMaxSubArraySum.addEventListener("click", function () {
 });
 
 //5.You are given a binary tree. Write a program to find the maximum depth of the tree and display the result on a web page.
-const calculateDepth = document.getElementById("calculateDepth");
-calculateDepth.addEventListener("click", function () {
-  function TreeNode(val) {
-    this.val = val;
-    this.left = this.right = null;
-  }
-
-  function createBinaryTree(arr) {
-    if (arr.length === 0) return null;
-
-    const val = arr.shift();
-    if (val === null) return null;
-
-    const root = new TreeNode(val);
-    root.left = createBinaryTree(arr);
-    root.right = createBinaryTree(arr);
-
-    return root;
-  }
-
-  function maxDepth(root) {
-    if (!root) return 0;
-
-    const leftDepth = maxDepth(root.left);
-    const rightDepth = maxDepth(root.right);
-
-    return Math.max(leftDepth, rightDepth) + 1;
-  }
-
-  function findMaxDepth() {
+document
+  .getElementById("calculateDepth")
+  .addEventListener("click", function () {
     const inputField = document.getElementById("inputField");
-    const input = inputField.value.trim();
-    const inputArray = input.split(",").map((s) => {
-      if (s.trim() === "null") return null;
-      return parseInt(s);
+    const inputValues = inputField.value.split(",");
+    const treeNodes = inputValues.map((s) => {
+      if (s.trim().toLowerCase() === "null") return null;
+      return parseInt(s.trim());
     });
-
-    const treeRoot = createBinaryTree(inputArray);
-    const depth = maxDepth(treeRoot);
-
-    const maxDepthSpan = document.getElementById("maxDepth");
-    maxDepthSpan.textContent = depth.toString();
+    const root = createBinaryTreeFromArray(treeNodes);
+    const maxDepthResult = maxDepth(root);
+    document.getElementById("maxDepth").textContent = maxDepthResult;
+  });
+function TreeNode(val) {
+  this.val = val;
+  this.left = null;
+  this.right = null;
+}
+function createBinaryTreeFromArray(arr) {
+  if (arr.length === 0) return null;
+  const root = new TreeNode(arr[0]);
+  const queue = [root];
+  let index = 1;
+  while (index < arr.length) {
+    const currentNode = queue.shift();
+    if (arr[index] !== null) {
+      currentNode.left = new TreeNode(arr[index]);
+      queue.push(currentNode.left);
+    }
+    index++;
+    if (index < arr.length && arr[index] !== null) {
+      currentNode.right = new TreeNode(arr[index]);
+      queue.push(currentNode.right);
+    }
+    index++;
   }
-
-  const calculateButton = document.querySelector("button");
-  calculateButton.addEventListener("click", findMaxDepth);
-});
-
+  return root;
+}
+function maxDepth(root) {
+  if (!root) return 0;
+  const leftDepth = maxDepth(root.left);
+  const rightDepth = maxDepth(root.right);
+  return Math.max(leftDepth, rightDepth) + 1;
+}
 //6.You are given a list of integers. Write a program to find the kth smallest element in the list and display the result on a web page
 const findKthSmallest = document.getElementById("findKthSmallest");
 findKthSmallest.addEventListener("click", function () {
